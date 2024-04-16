@@ -47,8 +47,13 @@ public class Driver {
             logger.info("Port not specified, default to 9990");
             port = 9990;
         }
-
-        cli.connect(hostname, port, this.credentials.username, this.credentials.getPassword());
+        if (server.getScheme().equalsIgnoreCase("https")) {
+            logger.info("protocol: https");
+            cli.connect("https-remoting", hostname, port, this.credentials.username, this.credentials.getPassword());
+        }
+        else {    
+            cli.connect(hostname, port, this.credentials.username, this.credentials.getPassword());
+        }
     }
 
     /**
